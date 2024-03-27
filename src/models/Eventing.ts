@@ -14,7 +14,7 @@ export class Eventing {
    *  to indicate the type being passed in is a function
    *  we need to pass in () => void
    */
-  on(eventName: string, callback: Callback) {
+  on = (eventName: string, callback: Callback) => {
     /** the handler will either be defined or
      *  not yet defined, i.e. no callbacks have
      *  been passed in yet
@@ -24,12 +24,12 @@ export class Eventing {
      *  of functions to call based on the trigger
      */
     handlers.push(callback);
-  }
+  };
 
   /** trigger function to execute the callbacks
    *  we have added to different event types
    */
-  trigger(eventName: string): void {
+  trigger = (eventName: string): void => {
     /** extract the handlers for that event */
     const handlers = this.events[eventName];
     /** if there are no handlers for the event
@@ -42,5 +42,5 @@ export class Eventing {
     handlers.forEach((callback) => {
       callback();
     });
-  }
+  };
 }

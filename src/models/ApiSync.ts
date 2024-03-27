@@ -9,7 +9,7 @@ interface HasId {
   id?: number;
 }
 
-export class Sync<T extends HasId> {
+export class ApiSync<T extends HasId> {
   /** pass the root url into the constructor function
    *  this makes it easier reference later
    */

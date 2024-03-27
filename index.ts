@@ -1,5 +1,5 @@
 import { User } from "./src/models/User";
 
-const user = new User({ id: 1 });
+const user = User.buildUser({ id: 1 });
 
 user.fetch();

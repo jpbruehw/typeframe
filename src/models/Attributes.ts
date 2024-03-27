@@ -1,14 +1,20 @@
-import { UserProps } from "./User";
-
-export class Attributes<T> {
+export class Attributes<T extends Object> {
   constructor(private data: T) {}
 
-  /** use a type union to define multiple return types */
-  get(propName: string): number | string {
-    return this.data[propName];
+  /** use an advanced generic to
+   *  dynamically define the types
+   *  which are passed in as args
+   */
+  get = <K extends keyof T>(key: K): T[K] => {
+    return this.data[key];
+  };
+
+  set(update: T): void {
+    Object.assign(this.data, update);
   }
 
-  set(update: UserProps): void {
-    Object.assign(this.data, update);
+  // return all the attributes for the data
+  getAll(): T {
+    return this.data;
   }
 }
