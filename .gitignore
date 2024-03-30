@@ -3,3 +3,5 @@ package-lock.json
 tsconfig.ts
 dist/
 hi.txt
+.cache/
+bug.txt

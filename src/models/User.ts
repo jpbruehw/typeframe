@@ -11,10 +11,13 @@ export interface UserProps {
   [key: string]: number | string | undefined;
 }
 
-const rootUrl = "http://localhost:300";
+const rootUrl = "http://localhost:3000";
 
 export class User extends Model<UserProps> {
-  static buildUser(attrs: UserProps): User {
+  static buildUser(
+    attrs: UserProps,
+    rootUrl: string = "http://localhost:3000"
+  ): User {
     return new User(
       new Attributes<UserProps>(attrs),
       new Eventing(),
@@ -26,5 +29,11 @@ export class User extends Model<UserProps> {
     return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
       User.buildUser(json)
     );
+  }
+
+  setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+    this.set({ age });
+    console.log(age)
   }
 }

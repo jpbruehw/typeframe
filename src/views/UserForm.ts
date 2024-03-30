@@ -1,61 +1,63 @@
 import { User } from "../models/User";
+import { View } from "./View";
+import { UserProps } from "../models/User";
 
-export class UserForm {
-  constructor(public parent: Element, public model: User) {}
-
+export class UserForm extends View<User, UserProps> {
   // returns an object of callbacks
   eventsMap(): { [key: string]: () => void } {
     return {
-      "click:button": this.onButtonClick,
+      "click:.set-name": this.onSetNameClick,
+      "click:.set-age": this.onSetAgeClick,
+      "click:.save-model": this.onSaveClick,
     };
   }
 
-  onButtonClick(): void {
-    console.log("Hi There.");
-  }
+  onSetNameClick = (): void => {
+    const input = this.parent.querySelector("input");
+
+    // need to handle case where input could be null
+    if (input) {
+      const name = input.value;
+      this.model.set({ name });
+    }
+  };
+
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
+  };
+
+  onSaveClick = (): void => {
+    this.model.save();
+  };
 
   template(): HTMLElement {
     const div = document.createElement("div");
     const h1 = document.createElement("h1");
-    h1.textContent = "User Form";
+    h1.textContent = "User Details";
     const username = document.createElement("div");
     username.innerText = `Username: ${this.model.get("name")}`;
-    const input = document.createElement("input");
+    const age = document.createElement("div");
+    age.innerText = `Age: ${this.model.get("age")}`;
+    const setRandomAge = document.createElement("button");
+    setRandomAge.innerText = "Set Random Age";
+    setRandomAge.className = "set-age";
+    const nameInput = document.createElement("input");
+    nameInput.placeholder = `${this.model.get("name")}`;
+    const nameChange = document.createElement("button");
+    nameChange.innerText = "Change Name";
+    nameChange.className = "set-name";
+    const saveUser = document.createElement("button");
+    saveUser.className = "save-model";
+    saveUser.innerText = "Save User";
+
     div.appendChild(h1);
     div.appendChild(username);
-    div.appendChild(input);
+    div.appendChild(age);
+    div.appendChild(nameInput);
+    div.appendChild(setRandomAge);
+    div.appendChild(nameChange);
+    div.appendChild(saveUser);
+
     return div;
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    const eventsMap = this.eventsMap();
-
-    for (let eventKey in eventsMap) {
-      const [eventName, selector] = eventKey.split(":");
-
-      fragment.querySelectorAll(selector).forEach((element) => {
-        element.addEventListener(eventName, eventsMap[eventKey]);
-      });
-    }
-  }
-
-  render(): void {
-    const templateElement = this.template();
-
-    // create a temporary div to hold the template
-    const tempDiv = document.createElement("div");
-    tempDiv.appendChild(templateElement);
-
-    // extract the DocumentFragment from the temporary div
-    const fragment = document.createDocumentFragment();
-    while (tempDiv.firstChild) {
-      fragment.appendChild(tempDiv.firstChild);
-    }
-
-    // bind events to elements in the fragment
-    this.bindEvents(fragment);
-
-    // append the fragment to the parent element
-    this.parent.appendChild(fragment);
   }
 }

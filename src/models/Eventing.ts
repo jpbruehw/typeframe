@@ -19,11 +19,22 @@ export class Eventing {
      *  not yet defined, i.e. no callbacks have
      *  been passed in yet
      */
+
     const handlers = this.events[eventName] || [];
     /** add a new callback to the existing array
      *  of functions to call based on the trigger
      */
     handlers.push(callback);
+
+    // add the handlers to the given events
+    this.events[eventName] = handlers;
+
+    console.log("I HAVE BEEN TRIGGERED");
+    console.log("---------------------");
+    console.log("eventName: ", eventName);
+    console.log("callback: ", callback);
+    console.log("all events: ", this.events);
+    console.log("---------------------");
   };
 
   /** trigger function to execute the callbacks
@@ -32,14 +43,17 @@ export class Eventing {
   trigger = (eventName: string): void => {
     /** extract the handlers for that event */
     const handlers = this.events[eventName];
+    console.log("EVENTS: ", this.events);
     /** if there are no handlers for the event
      *  we exit and return
      */
     if (!handlers || handlers.length === 0) {
+      console.log("NO CALLBACKS FOUND");
       return;
     }
     /** otherwise we call all the callbacks in the array */
     handlers.forEach((callback) => {
+      console.log("CALLBACK CALLED: ", callback);
       callback();
     });
   };

@@ -38,7 +38,7 @@ interface Events {
  *  model will always be passed an id property,
  *  but the id could be undefined when implemented
  */
-interface HasId {
+export interface HasId {
   id?: number;
 }
 
@@ -97,6 +97,9 @@ export class Model<T extends HasId> {
       .save(this.attributes.getAll())
       .then((response: AxiosResponse): void => {
         this.trigger("save");
+      })
+      .catch((e) => {
+        console.error("Error saving user: ", e);
       });
   }
 }
