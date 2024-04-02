@@ -13,23 +13,21 @@ export class Collection<T, K> {
   events: Eventing = new Eventing();
   // define the rootUrl as well as the deserialization function
   constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
-
   // getters from Eventing class of interest
   get on() {
     return this.events.on;
   }
-
   get trigger() {
     return this.events.trigger;
   }
-
   fetch(): void {
+    console.log("FETCH METHOD CALLED: ");
     axios.get(this.rootUrl).then((response: AxiosResponse) => {
       response.data.forEach((value: K) => {
+        console.log("response found");
         this.models.push(this.deserialize(value));
       });
+      this.trigger("change");
     });
-
-    this.trigger("change");
   }
 }

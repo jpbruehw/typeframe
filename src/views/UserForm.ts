@@ -32,12 +32,6 @@ export class UserForm extends View<User, UserProps> {
 
   template(): HTMLElement {
     const div = document.createElement("div");
-    const h1 = document.createElement("h1");
-    h1.textContent = "User Details";
-    const username = document.createElement("div");
-    username.innerText = `Username: ${this.model.get("name")}`;
-    const age = document.createElement("div");
-    age.innerText = `Age: ${this.model.get("age")}`;
     const setRandomAge = document.createElement("button");
     setRandomAge.innerText = "Set Random Age";
     setRandomAge.className = "set-age";
@@ -50,9 +44,6 @@ export class UserForm extends View<User, UserProps> {
     saveUser.className = "save-model";
     saveUser.innerText = "Save User";
 
-    div.appendChild(h1);
-    div.appendChild(username);
-    div.appendChild(age);
     div.appendChild(nameInput);
     div.appendChild(setRandomAge);
     div.appendChild(nameChange);

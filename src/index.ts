@@ -1,27 +1,27 @@
-import { UserForm } from "./views/UserForm";
-import { User } from "./models/User";
-import { UserProps } from "./models/User";
+import { UserList } from "./views/UserList";
+import { Collection } from "./models/Collection";
+import { User, UserProps } from "./models/User";
 
 // ensures dom is loaded before running any code
 document.addEventListener("DOMContentLoaded", () => {
-  // Create an object with user properties
-  const userProps: UserProps = {
-    id: 1,
-    name: "John",
-    age: 30,
-  };
-  console.log("hello");
-  // Create a new user instance using the properties
-  const user = User.buildUser(userProps, "http://localhost:3000");
-  console.log(user);
+  const jsonDbLink =
+    "https://my-json-server.typicode.com/jpbruehw/typescript-web-framework/blob/main/users";
 
-  if (typeof window !== "undefined") {
-    const bodyElement = document.body;
-    console.log("This is the document body: ", bodyElement);
-    const userForm = new UserForm(bodyElement, user);
+  // render a list of users using collection
+  const users = new Collection(jsonDbLink, (json: UserProps) => {
+    return User.buildUser(json);
+  });
 
-    userForm.render();
-  } else {
-    throw new Error("Body not found");
-  }
+  users.on("change", () => {
+    const root = document.getElementById("root");
+
+    if (root) {
+      const userList = new UserList(root, users);
+      userList.render();
+    } else {
+      throw new Error("Cannot get user list.");
+    }
+  });
+
+  users.fetch();
 });

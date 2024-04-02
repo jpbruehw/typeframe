@@ -8,16 +8,14 @@ export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
-  [key: string]: number | string | undefined;
 }
 
-const rootUrl = "http://localhost:3000";
-
 export class User extends Model<UserProps> {
-  static buildUser(
-    attrs: UserProps,
-    rootUrl: string = "http://localhost:3000"
-  ): User {
+  // default value for url in development
+  static rootUrl: string = "http://localhost:3000";
+  /** static function to  */
+
+  static buildUser(attrs: UserProps, rootUrl: string = User.rootUrl): User {
     return new User(
       new Attributes<UserProps>(attrs),
       new Eventing(),
@@ -25,15 +23,17 @@ export class User extends Model<UserProps> {
     );
   }
 
-  static buildUserCollection(): Collection<User, UserProps> {
-    return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
-      User.buildUser(json)
+  static buildUserCollection(rootUrl?: string): Collection<User, UserProps> {
+    const collectionRootUrl = rootUrl ?? User.rootUrl;
+    return new Collection<User, UserProps>(
+      collectionRootUrl,
+      (json: UserProps) => User.buildUser(json)
     );
   }
 
   setRandomAge(): void {
     const age = Math.round(Math.random() * 100);
     this.set({ age });
-    console.log(age)
+    console.log(age);
   }
 }

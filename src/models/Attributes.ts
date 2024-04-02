@@ -1,6 +1,5 @@
 export class Attributes<T extends Object> {
   constructor(private data: T) {}
-
   /** use an advanced generic to
    *  dynamically define the types
    *  which are passed in as args
