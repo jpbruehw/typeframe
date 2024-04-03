@@ -1,7 +1,7 @@
-import { UserList } from "./views/UserList";
-import { Collection } from "./models/Collection";
-import { User } from "./models/User";
-import { UserForm } from "./views/UserForm";
+import { UserList } from "./src/views/UserList";
+import { Collection } from "./src/models/Collection";
+import { User } from "./src/models/User";
+import { UserForm } from "./src/views/UserForm";
 // ensures dom is loaded before running any code
 document.addEventListener("DOMContentLoaded", function () {
   /** link to db.json file on github rep
