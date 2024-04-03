@@ -120,6 +120,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"src/views/CollectionView.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -132,9 +141,10 @@ exports.CollectionView = void 0;
  *  ---------------------------------------
  *  see UserList.ts for sample implementation
  */
-var CollectionView = exports.CollectionView = /** @class */function () {
+var CollectionView = /*#__PURE__*/function () {
   // takes parent HTML element and collection instance
   function CollectionView(parent, collection) {
+    _classCallCheck(this, CollectionView);
     this.parent = parent;
     this.collection = collection;
   }
@@ -144,30 +154,53 @@ var CollectionView = exports.CollectionView = /** @class */function () {
    *  renders them using the renderItem func
    *  which is implemented differently
    */
-  CollectionView.prototype.render = function () {
-    this.parent.innerHTML = "";
-    // create placeholder template element to populate
-    // and then attach to the dom
-    var templateElement = document.createElement("template");
-    for (var _i = 0, _a = this.collection.models; _i < _a.length; _i++) {
-      var model = _a[_i];
-      var itemParent = document.createElement("div");
-      /** this takes the parent div as a temp html holder
-       *  and the model instance and appends the
-       *  model to the parent element
-       *  after processing
-       */
-      this.renderItem(model, itemParent);
-      // append resulting html to template
-      templateElement.content.append(itemParent);
+  return _createClass(CollectionView, [{
+    key: "render",
+    value: function render() {
+      this.parent.innerHTML = "";
+      // create placeholder template element to populate
+      // and then attach to the dom
+      var templateElement = document.createElement("template");
+      var _iterator = _createForOfIteratorHelper(this.collection.models),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var model = _step.value;
+          var itemParent = document.createElement("div");
+          /** this takes the parent div as a temp html holder
+           *  and the model instance and appends the
+           *  model to the parent element
+           *  after processing
+           */
+          this.renderItem(model, itemParent);
+          // append resulting html to template
+          templateElement.content.append(itemParent);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      this.parent.append(templateElement.content);
     }
-    this.parent.append(templateElement.content);
-  };
-  return CollectionView;
+  }]);
 }();
+exports.CollectionView = CollectionView;
 },{}],"src/views/View.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -184,8 +217,9 @@ exports.View = void 0;
  *  with any functionality if for whatever reason
  *  an id is not a part of the model
  */
-var View = exports.View = /** @class */function () {
+var View = /*#__PURE__*/function () {
   function View(parent, model) {
+    _classCallCheck(this, View);
     this.parent = parent;
     this.model = model;
     /** regions implementation
@@ -211,136 +245,146 @@ var View = exports.View = /** @class */function () {
    *  by returning an empty object we define
    *  a "harmless" default implementation
    */
-  View.prototype.eventsMap = function () {
-    return {};
-  };
-  View.prototype.regionsMap = function () {
-    return {};
-  };
-  // loops over HTML and adds events and event listeners
-  View.prototype.mapRegions = function (fragment) {
-    // reference the regionsMap
-    var regionsMap = this.regionsMap();
-    // loop over and identify all the relevant selectors
-    for (var key in regionsMap) {
-      // get the selector based on the key
-      var selector = regionsMap[key];
-      // get the element based on the selector
-      var element = fragment.querySelector(selector);
-      // ensure the element first exists
-      // then assign it to the map
-      if (element) {
-        this.regions[key] = element;
+  return _createClass(View, [{
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {};
+    }
+  }, {
+    key: "regionsMap",
+    value: function regionsMap() {
+      return {};
+    }
+    // loops over HTML and adds events and event listeners
+  }, {
+    key: "mapRegions",
+    value: function mapRegions(fragment) {
+      // reference the regionsMap
+      var regionsMap = this.regionsMap();
+      // loop over and identify all the relevant selectors
+      for (var key in regionsMap) {
+        // get the selector based on the key
+        var selector = regionsMap[key];
+        // get the element based on the selector
+        var element = fragment.querySelector(selector);
+        // ensure the element first exists
+        // then assign it to the map
+        if (element) {
+          this.regions[key] = element;
+        }
       }
     }
-  };
-  // helper method to re-render model when changes are made
-  View.prototype.bindModel = function () {
-    var _this = this;
-    this.model.on("change", function () {
-      _this.render();
-    });
-  };
-  /** helper function that adds events
-   *  and event listeners to the html elements
-   *  the event listener is the left side and
-   *  the selector on the right side
-   *  i.e. click:.set-name
-   *  ---------------------------------------
-   *  see UserForm.ts for example implementation
-   */
-  View.prototype.bindEvents = function (fragment) {
-    var eventsMap = this.eventsMap();
-    var _loop_1 = function _loop_1(eventKey) {
-      var _a = eventKey.split(":"),
-        eventName = _a[0],
-        selector = _a[1];
-      fragment.querySelectorAll(selector).forEach(function (element) {
-        element.addEventListener(eventName, eventsMap[eventKey]);
+    // helper method to re-render model when changes are made
+  }, {
+    key: "bindModel",
+    value: function bindModel() {
+      var _this = this;
+      this.model.on("change", function () {
+        _this.render();
       });
-    };
-    // loops over keys from eventsMap object
-    for (var eventKey in eventsMap) {
-      _loop_1(eventKey);
     }
-  };
-  /** optional function to perform
-   *  the purpose of this function is
-   *  to build modular components
-   *  dynamically
-   *  NOTE: see UserEdit.ts for sample
-   *  implementation
-   */
-  View.prototype.onRender = function () {};
-  /** main render function that brings
-   *  together all the methods we have defined
-   *  it first clears the html of the parent element
-   *  and then brings together all the
-   *  methods we have laid out so far
-   */
-  View.prototype.render = function () {
-    /** when the form re-renders, we want
-     *  to make sure to first empty the existing html
-     *  then add it back in
+    /** helper function that adds events
+     *  and event listeners to the html elements
+     *  the event listener is the left side and
+     *  the selector on the right side
+     *  i.e. click:.set-name
+     *  ---------------------------------------
+     *  see UserForm.ts for example implementation
      */
-    this.parent.innerHTML = "";
-    /** create a template based on
-     *  the template() method
-     *  implemented for the specific
-     *  model
+  }, {
+    key: "bindEvents",
+    value: function bindEvents(fragment) {
+      var eventsMap = this.eventsMap();
+      // loops over keys from eventsMap object
+      var _loop = function _loop(eventKey) {
+        var _eventKey$split = eventKey.split(":"),
+          _eventKey$split2 = _slicedToArray(_eventKey$split, 2),
+          eventName = _eventKey$split2[0],
+          selector = _eventKey$split2[1];
+        fragment.querySelectorAll(selector).forEach(function (element) {
+          element.addEventListener(eventName, eventsMap[eventKey]);
+        });
+      };
+      for (var eventKey in eventsMap) {
+        _loop(eventKey);
+      }
+    }
+    /** optional function to perform
+     *  the purpose of this function is
+     *  to build modular components
+     *  dynamically
+     *  NOTE: see UserEdit.ts for sample
+     *  implementation
      */
-    var templateElement = this.template();
-    /** create a document fragment
-     *  which we append all the html
-     *  elements to
+  }, {
+    key: "onRender",
+    value: function onRender() {}
+    /** main render function that brings
+     *  together all the methods we have defined
+     *  it first clears the html of the parent element
+     *  and then brings together all the
+     *  methods we have laid out so far
      */
-    var fragment = document.createDocumentFragment();
-    // append the template element to the div
-    fragment.appendChild(templateElement);
-    // bind events to elements in the fragment
-    this.bindEvents(fragment);
-    // call mapRegions method
-    this.mapRegions(fragment);
-    // nest all the views - if implemented
-    this.onRender();
-    // append the fragment to the parent element
-    this.parent.appendChild(fragment);
-  };
-  return View;
+  }, {
+    key: "render",
+    value: function render() {
+      /** when the form re-renders, we want
+       *  to make sure to first empty the existing html
+       *  then add it back in
+       */
+      this.parent.innerHTML = "";
+      /** create a template based on
+       *  the template() method
+       *  implemented for the specific
+       *  model
+       */
+      var templateElement = this.template();
+      /** create a document fragment
+       *  which we append all the html
+       *  elements to
+       */
+      var fragment = document.createDocumentFragment();
+      // append the template element to the div
+      fragment.appendChild(templateElement);
+      // bind events to elements in the fragment
+      this.bindEvents(fragment);
+      // call mapRegions method
+      this.mapRegions(fragment);
+      // nest all the views - if implemented
+      this.onRender();
+      // append the fragment to the parent element
+      this.parent.appendChild(fragment);
+    }
+  }]);
 }();
+exports.View = View;
 },{}],"src/views/UserShow.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UserShow = void 0;
-var _View = require("./View");
-var __extends = void 0 && (void 0).__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
+var View_1 = require("./View");
 // helper class which displays basic information about a user
-var UserShow = exports.UserShow = /** @class */function (_super) {
-  __extends(UserShow, _super);
+var UserShow = /*#__PURE__*/function (_View_1$View) {
   function UserShow() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
+    var _this;
+    _classCallCheck(this, UserShow);
+    _this = _callSuper(this, UserShow, arguments);
     _this.template = function () {
       var div = document.createElement("div");
       div.className = "user-details-container";
@@ -357,37 +401,32 @@ var UserShow = exports.UserShow = /** @class */function (_super) {
     };
     return _this;
   }
-  return UserShow;
-}(_View.View);
+  _inherits(UserShow, _View_1$View);
+  return _createClass(UserShow);
+}(View_1.View);
+exports.UserShow = UserShow;
 },{"./View":"src/views/View.ts"}],"src/views/UserList.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UserList = void 0;
-var _CollectionView = require("./CollectionView");
-var _UserShow = require("./UserShow");
-var __extends = void 0 && (void 0).__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
+var CollectionView_1 = require("./CollectionView");
+var UserShow_1 = require("./UserShow");
 /** this class renders a list of users which are
  *  passed in which transforms the model
  *  based on the render function in CollectionViews.ts
@@ -395,19 +434,29 @@ var __extends = void 0 && (void 0).__extends || function () {
  *  renderItem is the implementation of an abstract function
  *  that renders a new UserShow instance, which extends Views.ts
  */
-var UserList = exports.UserList = /** @class */function (_super) {
-  __extends(UserList, _super);
+var UserList = /*#__PURE__*/function (_CollectionView_1$Col) {
   function UserList() {
-    return _super !== null && _super.apply(this, arguments) || this;
+    _classCallCheck(this, UserList);
+    return _callSuper(this, UserList, arguments);
   }
-  UserList.prototype.renderItem = function (model, itemParent) {
-    new _UserShow.UserShow(itemParent, model).render();
-  };
-  return UserList;
-}(_CollectionView.CollectionView);
+  _inherits(UserList, _CollectionView_1$Col);
+  return _createClass(UserList, [{
+    key: "renderItem",
+    value: function renderItem(model, itemParent) {
+      new UserShow_1.UserShow(itemParent, model).render();
+    }
+  }]);
+}(CollectionView_1.CollectionView);
+exports.UserList = UserList;
 },{"./CollectionView":"src/views/CollectionView.ts","./UserShow":"src/views/UserShow.ts"}],"src/models/Eventing.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -420,54 +469,53 @@ exports.Eventing = void 0;
  *  will likely need further tweaking for more
  *  complex implementations
  */
-var Eventing = exports.Eventing = /** @class */function () {
-  function Eventing() {
-    var _this = this;
-    /** object in the class to hold the events
-     *  the key is a string and the result is
-     *  an array of callbacks
-     *  to specify key type if we don't know the
-     *  name of the key in advance we pass it in like this
+var Eventing = /*#__PURE__*/_createClass(function Eventing() {
+  var _this = this;
+  _classCallCheck(this, Eventing);
+  /** object in the class to hold the events
+   *  the key is a string and the result is
+   *  an array of callbacks
+   *  to specify key type if we don't know the
+   *  name of the key in advance we pass it in like this
+   */
+  this.events = {};
+  /** function to update an html element and add
+   *  then execute an event listener
+   *  to indicate the type being passed in is a function
+   *  we need to pass in () => void
+   */
+  this.on = function (eventName, callback) {
+    /** the handler will either be defined or
+     *  not yet defined, i.e. no callbacks have
+     *  been passed in yet
      */
-    this.events = {};
-    /** function to update an html element and add
-     *  then execute an event listener
-     *  to indicate the type being passed in is a function
-     *  we need to pass in () => void
+    var handlers = _this.events[eventName] || [];
+    /** add a new callback to the existing array
+     *  of functions to call based on the trigger
      */
-    this.on = function (eventName, callback) {
-      /** the handler will either be defined or
-       *  not yet defined, i.e. no callbacks have
-       *  been passed in yet
-       */
-      var handlers = _this.events[eventName] || [];
-      /** add a new callback to the existing array
-       *  of functions to call based on the trigger
-       */
-      handlers.push(callback);
-      // add the handlers to the given events
-      _this.events[eventName] = handlers;
-    };
-    /** trigger function to execute the callbacks
-     *  we have added to different event types
+    handlers.push(callback);
+    // add the handlers to the given events
+    _this.events[eventName] = handlers;
+  };
+  /** trigger function to execute the callbacks
+   *  we have added to different event types
+   */
+  this.trigger = function (eventName) {
+    /** extract the handlers for that event */
+    var handlers = _this.events[eventName];
+    /** if there are no handlers for the event
+     *  we exit and return
      */
-    this.trigger = function (eventName) {
-      /** extract the handlers for that event */
-      var handlers = _this.events[eventName];
-      /** if there are no handlers for the event
-       *  we exit and return
-       */
-      if (!handlers || handlers.length === 0) {
-        return;
-      }
-      /** otherwise we call all the callbacks in the array */
-      handlers.forEach(function (callback) {
-        callback();
-      });
-    };
-  }
-  return Eventing;
-}();
+    if (!handlers || handlers.length === 0) {
+      return;
+    }
+    /** otherwise we call all the callbacks in the array */
+    handlers.forEach(function (callback) {
+      callback();
+    });
+  };
+});
+exports.Eventing = Eventing;
 },{}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
@@ -5788,13 +5836,23 @@ exports.Axios = Axios;
 },{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"src/models/Collection.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Collection = void 0;
-var _Eventing = require("./Eventing");
-var _axios = _interopRequireDefault(require("axios"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var Eventing_1 = require("./Eventing");
+var axios_1 = __importDefault(require("axios"));
 /** this is another generic helper class
  *  which lets the user interact
  *  with the instances they have created
@@ -5802,43 +5860,49 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  T: the class/structure the user has defined
  *  K: the structure of the JSON which will be deserialized
  */
-var Collection = exports.Collection = /** @class */function () {
+var Collection = /*#__PURE__*/function () {
   // define the rootUrl as well as the deserialization function
   function Collection(rootUrl, deserialize) {
+    _classCallCheck(this, Collection);
     this.rootUrl = rootUrl;
     this.deserialize = deserialize;
     this.models = [];
-    this.events = new _Eventing.Eventing();
+    this.events = new Eventing_1.Eventing();
   }
-  Object.defineProperty(Collection.prototype, "on", {
-    // getters from Eventing class of interest
+  // getters from Eventing class of interest
+  return _createClass(Collection, [{
+    key: "on",
     get: function get() {
       return this.events.on;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Collection.prototype, "trigger", {
+    }
+  }, {
+    key: "trigger",
     get: function get() {
       return this.events.trigger;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Collection.prototype.fetch = function () {
-    var _this = this;
-    _axios.default.get(this.rootUrl).then(function (response) {
-      response.data.forEach(function (value) {
-        _this.models.push(_this.deserialize(value));
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
+      axios_1.default.get(this.rootUrl).then(function (response) {
+        response.data.forEach(function (value) {
+          _this.models.push(_this.deserialize(value));
+        });
+        _this.trigger("change");
       });
-      _this.trigger("change");
-    });
-  };
-  return Collection;
+    }
+  }]);
 }();
+exports.Collection = Collection;
 },{"./Eventing":"src/models/Eventing.ts","axios":"node_modules/axios/index.js"}],"src/models/Model.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -5847,8 +5911,9 @@ exports.Model = void 0;
  *  of many different types of structures for
  *  an app, built to be flexible and accommodate
  */
-var Model = exports.Model = /** @class */function () {
+var Model = /*#__PURE__*/function () {
   function Model(attributes, events, sync) {
+    _classCallCheck(this, Model);
     this.attributes = attributes;
     this.events = events;
     this.sync = sync;
@@ -5865,41 +5930,54 @@ var Model = exports.Model = /** @class */function () {
    *  does not commit the changes to
    *  a database
    */
-  Model.prototype.set = function (update) {
-    this.attributes.set(update);
-    this.events.trigger("change");
-  };
-  /** fetch method
-   *  a new user will not yet have an id
-   *  so we need to account for that
-   */
-  Model.prototype.fetch = function () {
-    var _this = this;
-    var id = this.attributes.get("id");
-    if (typeof id !== "number") {
-      throw new Error("Cannot fetch without an id.");
+  return _createClass(Model, [{
+    key: "set",
+    value: function set(update) {
+      this.attributes.set(update);
+      this.events.trigger("change");
     }
-    this.sync.fetch(id).then(function (response) {
-      _this.set(response.data);
-    });
-  };
-  /** method to save any new user data
-   *  uses the attributes class to
-   *  first get all of the relevant user data
-   *  then commit it using the sync save method
-   */
-  Model.prototype.save = function () {
-    this.sync.save(this.attributes.getAll()).then(function (response) {
-      console.log("Saved Model Data: ", response.data);
-    }).catch(function (e) {
-      console.error("Error saving user: ", e);
-    });
-  };
-  return Model;
+    /** fetch method
+     *  a new user will not yet have an id
+     *  so we need to account for that
+     */
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
+      var id = this.attributes.get("id");
+      if (typeof id !== "number") {
+        throw new Error("Cannot fetch without an id.");
+      }
+      this.sync.fetch(id).then(function (response) {
+        _this.set(response.data);
+      });
+    }
+    /** method to save any new user data
+     *  uses the attributes class to
+     *  first get all of the relevant user data
+     *  then commit it using the sync save method
+     */
+  }, {
+    key: "save",
+    value: function save() {
+      this.sync.save(this.attributes.getAll()).then(function (response) {
+        console.log("Saved Model Data: ", response.data);
+      }).catch(function (e) {
+        console.error("Error saving user: ", e);
+      });
+    }
+  }]);
 }();
+exports.Model = Model;
 },{}],"src/models/Attributes.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -5910,9 +5988,10 @@ exports.Attributes = void 0;
  *  which is then used as the template
  *  for the data associated with an instance of the model
  */
-var Attributes = exports.Attributes = /** @class */function () {
+var Attributes = /*#__PURE__*/function () {
   function Attributes(data) {
     var _this = this;
+    _classCallCheck(this, Attributes);
     this.data = data;
     /** use an advanced generic to
      *  dynamically define the types
@@ -5931,153 +6010,164 @@ var Attributes = exports.Attributes = /** @class */function () {
    *  are working with
    *  does NOT save to DB
    */
-  Attributes.prototype.set = function (update) {
-    Object.assign(this.data, update);
-  };
-  // return all the attributes for the data
-  Attributes.prototype.getAll = function () {
-    return this.data;
-  };
-  return Attributes;
+  return _createClass(Attributes, [{
+    key: "set",
+    value: function set(update) {
+      Object.assign(this.data, update);
+    }
+    // return all the attributes for the data
+  }, {
+    key: "getAll",
+    value: function getAll() {
+      return this.data;
+    }
+  }]);
 }();
+exports.Attributes = Attributes;
 },{}],"src/models/ApiSync.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.ApiSync = void 0;
-var _axios = _interopRequireDefault(require("axios"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var ApiSync = exports.ApiSync = /** @class */function () {
+var axios_1 = __importDefault(require("axios"));
+var ApiSync = /*#__PURE__*/function () {
   /** pass the root url into the constructor function
    *  this makes it easier reference later
    */
   function ApiSync(rootUrl) {
+    _classCallCheck(this, ApiSync);
     this.rootUrl = rootUrl;
   }
   /** create fetch method to get
    *  information from a db
    *  for an instance of a model based on id
    */
-  ApiSync.prototype.fetch = function (id) {
-    return _axios.default.get("".concat(this.rootUrl, "/").concat(id));
-  };
-  /** create method to save a user
-   *  this save method needs to be updated
-   *  depending on the model context
-   *  if there exists an id property on the data
-   *  NOTE: edit the /users/ portion of the save method
-   */
-  ApiSync.prototype.save = function (data) {
-    var id = data.id;
-    if (id) {
-      return _axios.default.put("".concat(this.rootUrl, "/users/").concat(id), data);
-    } else {
-      return _axios.default.post("".concat(this.rootUrl, "/users"), data);
+  return _createClass(ApiSync, [{
+    key: "fetch",
+    value: function fetch(id) {
+      return axios_1.default.get("".concat(this.rootUrl, "/").concat(id));
     }
-  };
-  return ApiSync;
+    /** create method to save a user
+     *  this save method needs to be updated
+     *  depending on the model context
+     *  if there exists an id property on the data
+     *  NOTE: edit the /users/ portion of the save method
+     */
+  }, {
+    key: "save",
+    value: function save(data) {
+      var id = data.id;
+      if (id) {
+        return axios_1.default.put("".concat(this.rootUrl, "/users/").concat(id), data);
+      } else {
+        return axios_1.default.post("".concat(this.rootUrl, "/users"), data);
+      }
+    }
+  }]);
 }();
+exports.ApiSync = ApiSync;
 },{"axios":"node_modules/axios/index.js"}],"src/models/User.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.User = void 0;
-var _Model = require("./Model");
-var _Attributes = require("./Attributes");
-var _ApiSync = require("./ApiSync");
-var _Eventing = require("./Eventing");
-var _Collection = require("./Collection");
-var __extends = void 0 && (void 0).__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
+var Model_1 = require("./Model");
+var Attributes_1 = require("./Attributes");
+var ApiSync_1 = require("./ApiSync");
+var Eventing_1 = require("./Eventing");
+var Collection_1 = require("./Collection");
 /** user class for demonstration purposes
  *  basic user class that is a direct implementation
  *  of the Model.ts file and implements the
  *  Eventing, ApiSync, and Attributes
  */
-var User = exports.User = /** @class */function (_super) {
-  __extends(User, _super);
+var User = /*#__PURE__*/function (_Model_1$Model) {
   function User() {
-    return _super !== null && _super.apply(this, arguments) || this;
+    _classCallCheck(this, User);
+    return _callSuper(this, User, arguments);
   }
-  /** static function to  build a user
-   *  returns an instance of the user class itself
-   *  is a direct implementation of the model class
-   *  refer to model.ts
-   */
-  User.buildUser = function (attrs, rootUrl) {
-    if (rootUrl === void 0) {
-      rootUrl = "https://localhost:3000";
+  _inherits(User, _Model_1$Model);
+  return _createClass(User, null, [{
+    key: "buildUser",
+    value:
+    /** static function to  build a user
+     *  returns an instance of the user class itself
+     *  is a direct implementation of the model class
+     *  refer to model.ts
+     */
+    function buildUser(attrs) {
+      var rootUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "https://localhost:3000";
+      return new User(new Attributes_1.Attributes(attrs), new Eventing_1.Eventing(), new ApiSync_1.ApiSync(rootUrl));
     }
-    return new User(new _Attributes.Attributes(attrs), new _Eventing.Eventing(), new _ApiSync.ApiSync(rootUrl));
-  };
-  /** static function to return a collection of users
-   *  takes the default local host url as input
-   *  unless otherwise specified
-   */
-  User.buildUserCollection = function (rootUrl) {
-    if (rootUrl === void 0) {
-      rootUrl = "https://localhost:3000";
+    /** static function to return a collection of users
+     *  takes the default local host url as input
+     *  unless otherwise specified
+     */
+  }, {
+    key: "buildUserCollection",
+    value: function buildUserCollection() {
+      var rootUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "https://localhost:3000";
+      return new Collection_1.Collection(rootUrl, function (json) {
+        return User.buildUser(json, rootUrl);
+      });
     }
-    return new _Collection.Collection(rootUrl, function (json) {
-      return User.buildUser(json, rootUrl);
-    });
-  };
-  return User;
-}(_Model.Model);
+  }]);
+}(Model_1.Model);
+exports.User = User;
 },{"./Model":"src/models/Model.ts","./Attributes":"src/models/Attributes.ts","./ApiSync":"src/models/ApiSync.ts","./Eventing":"src/models/Eventing.ts","./Collection":"src/models/Collection.ts"}],"src/views/UserForm.ts":[function(require,module,exports) {
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UserForm = void 0;
-var _View = require("./View");
-var __extends = void 0 && (void 0).__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var UserForm = exports.UserForm = /** @class */function (_super) {
-  __extends(UserForm, _super);
+var View_1 = require("./View");
+var UserForm = /*#__PURE__*/function (_View_1$View) {
   function UserForm() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
+    var _this;
+    _classCallCheck(this, UserForm);
+    _this = _callSuper(this, UserForm, arguments);
     /** function to allow the user to  */
     _this.onSetNameClick = function () {
       var input = _this.parent.querySelector("input");
@@ -6107,70 +6197,79 @@ var UserForm = exports.UserForm = /** @class */function (_super) {
     return _this;
   }
   // returns an object of callbacks
-  UserForm.prototype.eventsMap = function () {
-    return {
-      "click:.set-name": this.onSetNameClick,
-      "click:.set-age": this.onSetAgeClick,
-      "click:.save-model": this.onSaveClick
-    };
-  };
-  UserForm.prototype.template = function () {
-    var div = document.createElement("div");
-    var h3 = document.createElement("h3");
-    h3.textContent = "User Form";
-    h3.textContent = "User Details:";
-    h3.className = "form-header";
-    var username = document.createElement("div");
-    username.innerText = "Username: ".concat(this.model.get("name"));
-    var age = document.createElement("div");
-    age.innerText = "Age: ".concat(this.model.get("age"));
-    var nameInput = document.createElement("input");
-    nameInput.className = "name-input";
-    nameInput.placeholder = "".concat(this.model.get("name"));
-    // buttons
-    var buttonDiv = document.createElement("div");
-    buttonDiv.className = "button-div";
-    var setRandomAge = document.createElement("button");
-    setRandomAge.classList.add("set-age");
-    setRandomAge.classList.add("user-form-button");
-    var ageButtonSpan = document.createElement("span");
-    ageButtonSpan.innerText = "Set Random Age";
-    setRandomAge.appendChild(ageButtonSpan);
-    var saveUser = document.createElement("button");
-    saveUser.classList.add("save-model");
-    saveUser.classList.add("user-form-button");
-    var saveButtonSpan = document.createElement("span");
-    saveButtonSpan.innerText = "Save User";
-    saveUser.appendChild(saveButtonSpan);
-    var nameChange = document.createElement("button");
-    nameChange.classList.add("set-name");
-    nameChange.classList.add("user-form-button");
-    var nameButtonSpan = document.createElement("span");
-    nameButtonSpan.innerText = "Change Name";
-    nameChange.appendChild(nameButtonSpan);
-    var nameChangeHeader = document.createElement("h5");
-    nameChangeHeader.innerText = "Change Name";
-    nameChangeHeader.className = "name-change-header";
-    buttonDiv.appendChild(setRandomAge);
-    buttonDiv.appendChild(nameChange);
-    buttonDiv.appendChild(saveUser);
-    div.appendChild(h3);
-    div.appendChild(username);
-    div.appendChild(age);
-    div.appendChild(nameChangeHeader);
-    div.appendChild(nameInput);
-    div.appendChild(buttonDiv);
-    return div;
-  };
-  return UserForm;
-}(_View.View);
+  _inherits(UserForm, _View_1$View);
+  return _createClass(UserForm, [{
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {
+        "click:.set-name": this.onSetNameClick,
+        "click:.set-age": this.onSetAgeClick,
+        "click:.save-model": this.onSaveClick
+      };
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      var div = document.createElement("div");
+      var h3 = document.createElement("h3");
+      h3.textContent = "User Form";
+      h3.textContent = "User Details:";
+      h3.className = "form-header";
+      var username = document.createElement("div");
+      username.innerText = "Username: ".concat(this.model.get("name"));
+      var age = document.createElement("div");
+      age.innerText = "Age: ".concat(this.model.get("age"));
+      var nameInput = document.createElement("input");
+      nameInput.className = "name-input";
+      nameInput.placeholder = "".concat(this.model.get("name"));
+      // buttons
+      var buttonDiv = document.createElement("div");
+      buttonDiv.className = "button-div";
+      var setRandomAge = document.createElement("button");
+      setRandomAge.classList.add("set-age");
+      setRandomAge.classList.add("user-form-button");
+      var ageButtonSpan = document.createElement("span");
+      ageButtonSpan.innerText = "Set Random Age";
+      setRandomAge.appendChild(ageButtonSpan);
+      var saveUser = document.createElement("button");
+      saveUser.classList.add("save-model");
+      saveUser.classList.add("user-form-button");
+      var saveButtonSpan = document.createElement("span");
+      saveButtonSpan.innerText = "Save User";
+      saveUser.appendChild(saveButtonSpan);
+      var nameChange = document.createElement("button");
+      nameChange.classList.add("set-name");
+      nameChange.classList.add("user-form-button");
+      var nameButtonSpan = document.createElement("span");
+      nameButtonSpan.innerText = "Change Name";
+      nameChange.appendChild(nameButtonSpan);
+      var nameChangeHeader = document.createElement("h5");
+      nameChangeHeader.innerText = "Change Name";
+      nameChangeHeader.className = "name-change-header";
+      buttonDiv.appendChild(setRandomAge);
+      buttonDiv.appendChild(nameChange);
+      buttonDiv.appendChild(saveUser);
+      div.appendChild(h3);
+      div.appendChild(username);
+      div.appendChild(age);
+      div.appendChild(nameChangeHeader);
+      div.appendChild(nameInput);
+      div.appendChild(buttonDiv);
+      return div;
+    }
+  }]);
+}(View_1.View);
+exports.UserForm = UserForm;
 },{"./View":"src/views/View.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
-var _UserList = require("./views/UserList");
-var _Collection = require("./models/Collection");
-var _User = require("./models/User");
-var _UserForm = require("./views/UserForm");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var UserList_1 = require("./views/UserList");
+var Collection_1 = require("./models/Collection");
+var User_1 = require("./models/User");
+var UserForm_1 = require("./views/UserForm");
 // ensures dom is loaded before running any code
 document.addEventListener("DOMContentLoaded", function () {
   /** link to db.json file on github rep
@@ -6201,7 +6300,7 @@ document.addEventListener("DOMContentLoaded", function () {
    *  with the userData object
    */
   // create user instance by calling static buildUser method
-  var userFormUser = _User.User.buildUser(userData, jsonDbLink);
+  var userFormUser = User_1.User.buildUser(userData, jsonDbLink);
   // query form div
   var formDiv = document.getElementById("single-user-demo");
   /** UserForm takes arguments for the parent
@@ -6209,18 +6308,18 @@ document.addEventListener("DOMContentLoaded", function () {
    *  just created
    */
   if (formDiv) {
-    var userForm = new _UserForm.UserForm(formDiv, userFormUser);
+    var userForm = new UserForm_1.UserForm(formDiv, userFormUser);
     userForm.render();
   }
   // render a list of users using collection
-  var users = new _Collection.Collection(jsonDbLink, function (json) {
-    return _User.User.buildUser(json, jsonDbLink);
+  var users = new Collection_1.Collection(jsonDbLink, function (json) {
+    return User_1.User.buildUser(json, jsonDbLink);
   });
   // set trigger event on change so it re-renders
   users.on("change", function () {
     var userListDiv = document.getElementById("user-list");
     if (userListDiv) {
-      var userList = new _UserList.UserList(userListDiv, users);
+      var userList = new UserList_1.UserList(userListDiv, users);
       userList.render();
     } else {
       throw new Error("Cannot get user list.");
@@ -6253,7 +6352,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57148" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59869" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
