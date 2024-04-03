@@ -9,9 +9,8 @@ exports.Eventing = void 0;
  *  will likely need further tweaking for more
  *  complex implementations
  */
-var Eventing = /** @class */ (function () {
-    function Eventing() {
-        var _this = this;
+class Eventing {
+    constructor() {
         /** object in the class to hold the events
          *  the key is a string and the result is
          *  an array of callbacks
@@ -24,25 +23,25 @@ var Eventing = /** @class */ (function () {
          *  to indicate the type being passed in is a function
          *  we need to pass in () => void
          */
-        this.on = function (eventName, callback) {
+        this.on = (eventName, callback) => {
             /** the handler will either be defined or
              *  not yet defined, i.e. no callbacks have
              *  been passed in yet
              */
-            var handlers = _this.events[eventName] || [];
+            const handlers = this.events[eventName] || [];
             /** add a new callback to the existing array
              *  of functions to call based on the trigger
              */
             handlers.push(callback);
             // add the handlers to the given events
-            _this.events[eventName] = handlers;
+            this.events[eventName] = handlers;
         };
         /** trigger function to execute the callbacks
          *  we have added to different event types
          */
-        this.trigger = function (eventName) {
+        this.trigger = (eventName) => {
             /** extract the handlers for that event */
-            var handlers = _this.events[eventName];
+            const handlers = this.events[eventName];
             /** if there are no handlers for the event
              *  we exit and return
              */
@@ -50,11 +49,10 @@ var Eventing = /** @class */ (function () {
                 return;
             }
             /** otherwise we call all the callbacks in the array */
-            handlers.forEach(function (callback) {
+            handlers.forEach((callback) => {
                 callback();
             });
         };
     }
-    return Eventing;
-}());
+}
 exports.Eventing = Eventing;

@@ -7,9 +7,8 @@ exports.Attributes = void 0;
  *  which is then used as the template
  *  for the data associated with an instance of the model
  */
-var Attributes = /** @class */ (function () {
-    function Attributes(data) {
-        var _this = this;
+class Attributes {
+    constructor(data) {
         this.data = data;
         /** use an advanced generic to
          *  dynamically define the types
@@ -19,8 +18,8 @@ var Attributes = /** @class */ (function () {
          *  on the data object and return the
          *  type specified in the T type for T of K
          */
-        this.get = function (key) {
-            return _this.data[key];
+        this.get = (key) => {
+            return this.data[key];
         };
     }
     /** set function to update the attribute
@@ -28,13 +27,12 @@ var Attributes = /** @class */ (function () {
      *  are working with
      *  does NOT save to DB
      */
-    Attributes.prototype.set = function (update) {
+    set(update) {
         Object.assign(this.data, update);
-    };
+    }
     // return all the attributes for the data
-    Attributes.prototype.getAll = function () {
+    getAll() {
         return this.data;
-    };
-    return Attributes;
-}());
+    }
+}
 exports.Attributes = Attributes;

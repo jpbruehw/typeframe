@@ -13,8 +13,8 @@ exports.View = void 0;
  *  with any functionality if for whatever reason
  *  an id is not a part of the model
  */
-var View = /** @class */ (function () {
-    function View(parent, model) {
+class View {
+    constructor(parent, model) {
         this.parent = parent;
         this.model = model;
         /** regions implementation
@@ -40,36 +40,35 @@ var View = /** @class */ (function () {
      *  by returning an empty object we define
      *  a "harmless" default implementation
      */
-    View.prototype.eventsMap = function () {
+    eventsMap() {
         return {};
-    };
-    View.prototype.regionsMap = function () {
+    }
+    regionsMap() {
         return {};
-    };
+    }
     // loops over HTML and adds events and event listeners
-    View.prototype.mapRegions = function (fragment) {
+    mapRegions(fragment) {
         // reference the regionsMap
-        var regionsMap = this.regionsMap();
+        const regionsMap = this.regionsMap();
         // loop over and identify all the relevant selectors
-        for (var key in regionsMap) {
+        for (let key in regionsMap) {
             // get the selector based on the key
-            var selector = regionsMap[key];
+            const selector = regionsMap[key];
             // get the element based on the selector
-            var element = fragment.querySelector(selector);
+            const element = fragment.querySelector(selector);
             // ensure the element first exists
             // then assign it to the map
             if (element) {
                 this.regions[key] = element;
             }
         }
-    };
+    }
     // helper method to re-render model when changes are made
-    View.prototype.bindModel = function () {
-        var _this = this;
-        this.model.on("change", function () {
-            _this.render();
+    bindModel() {
+        this.model.on("change", () => {
+            this.render();
         });
-    };
+    }
     /** helper function that adds events
      *  and event listeners to the html elements
      *  the event listener is the left side and
@@ -78,19 +77,16 @@ var View = /** @class */ (function () {
      *  ---------------------------------------
      *  see UserForm.ts for example implementation
      */
-    View.prototype.bindEvents = function (fragment) {
-        var eventsMap = this.eventsMap();
-        var _loop_1 = function (eventKey) {
-            var _a = eventKey.split(":"), eventName = _a[0], selector = _a[1];
-            fragment.querySelectorAll(selector).forEach(function (element) {
+    bindEvents(fragment) {
+        const eventsMap = this.eventsMap();
+        // loops over keys from eventsMap object
+        for (let eventKey in eventsMap) {
+            const [eventName, selector] = eventKey.split(":");
+            fragment.querySelectorAll(selector).forEach((element) => {
                 element.addEventListener(eventName, eventsMap[eventKey]);
             });
-        };
-        // loops over keys from eventsMap object
-        for (var eventKey in eventsMap) {
-            _loop_1(eventKey);
         }
-    };
+    }
     /** optional function to perform
      *  the purpose of this function is
      *  to build modular components
@@ -98,14 +94,14 @@ var View = /** @class */ (function () {
      *  NOTE: see UserEdit.ts for sample
      *  implementation
      */
-    View.prototype.onRender = function () { };
+    onRender() { }
     /** main render function that brings
      *  together all the methods we have defined
      *  it first clears the html of the parent element
      *  and then brings together all the
      *  methods we have laid out so far
      */
-    View.prototype.render = function () {
+    render() {
         /** when the form re-renders, we want
          *  to make sure to first empty the existing html
          *  then add it back in
@@ -116,12 +112,12 @@ var View = /** @class */ (function () {
          *  implemented for the specific
          *  model
          */
-        var templateElement = this.template();
+        const templateElement = this.template();
         /** create a document fragment
          *  which we append all the html
          *  elements to
          */
-        var fragment = document.createDocumentFragment();
+        const fragment = document.createDocumentFragment();
         // append the template element to the div
         fragment.appendChild(templateElement);
         // bind events to elements in the fragment
@@ -132,7 +128,6 @@ var View = /** @class */ (function () {
         this.onRender();
         // append the fragment to the parent element
         this.parent.appendChild(fragment);
-    };
-    return View;
-}());
+    }
+}
 exports.View = View;
