@@ -1,14 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Attributes = void 0;
 /** helper class which stores attributes associated
  *  with a given model instance
  *  is called by passing in an interface/object
  *  which is then used as the template
  *  for the data associated with an instance of the model
  */
-class Attributes {
-    constructor(data) {
+var Attributes = /** @class */ (function () {
+    function Attributes(data) {
+        var _this = this;
         this.data = data;
         /** use an advanced generic to
          *  dynamically define the types
@@ -18,8 +16,8 @@ class Attributes {
          *  on the data object and return the
          *  type specified in the T type for T of K
          */
-        this.get = (key) => {
-            return this.data[key];
+        this.get = function (key) {
+            return _this.data[key];
         };
     }
     /** set function to update the attribute
@@ -27,12 +25,13 @@ class Attributes {
      *  are working with
      *  does NOT save to DB
      */
-    set(update) {
+    Attributes.prototype.set = function (update) {
         Object.assign(this.data, update);
-    }
+    };
     // return all the attributes for the data
-    getAll() {
+    Attributes.prototype.getAll = function () {
         return this.data;
-    }
-}
-exports.Attributes = Attributes;
+    };
+    return Attributes;
+}());
+export { Attributes };

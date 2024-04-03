@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Eventing = void 0;
 /** basic function to hold the events
  *  and triggers for a given model
  *  this lets users dynamically program
@@ -9,8 +6,9 @@ exports.Eventing = void 0;
  *  will likely need further tweaking for more
  *  complex implementations
  */
-class Eventing {
-    constructor() {
+var Eventing = /** @class */ (function () {
+    function Eventing() {
+        var _this = this;
         /** object in the class to hold the events
          *  the key is a string and the result is
          *  an array of callbacks
@@ -23,25 +21,25 @@ class Eventing {
          *  to indicate the type being passed in is a function
          *  we need to pass in () => void
          */
-        this.on = (eventName, callback) => {
+        this.on = function (eventName, callback) {
             /** the handler will either be defined or
              *  not yet defined, i.e. no callbacks have
              *  been passed in yet
              */
-            const handlers = this.events[eventName] || [];
+            var handlers = _this.events[eventName] || [];
             /** add a new callback to the existing array
              *  of functions to call based on the trigger
              */
             handlers.push(callback);
             // add the handlers to the given events
-            this.events[eventName] = handlers;
+            _this.events[eventName] = handlers;
         };
         /** trigger function to execute the callbacks
          *  we have added to different event types
          */
-        this.trigger = (eventName) => {
+        this.trigger = function (eventName) {
             /** extract the handlers for that event */
-            const handlers = this.events[eventName];
+            var handlers = _this.events[eventName];
             /** if there are no handlers for the event
              *  we exit and return
              */
@@ -49,10 +47,11 @@ class Eventing {
                 return;
             }
             /** otherwise we call all the callbacks in the array */
-            handlers.forEach((callback) => {
+            handlers.forEach(function (callback) {
                 callback();
             });
         };
     }
-}
-exports.Eventing = Eventing;
+    return Eventing;
+}());
+export { Eventing };

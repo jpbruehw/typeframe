@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Model = void 0;
 /** generic model to handle the creation
  *  of many different types of structures for
  *  an app, built to be flexible and accommodate
  */
-class Model {
-    constructor(attributes, events, sync) {
+var Model = /** @class */ (function () {
+    function Model(attributes, events, sync) {
         this.attributes = attributes;
         this.events = events;
         this.sync = sync;
@@ -23,37 +20,39 @@ class Model {
      *  does not commit the changes to
      *  a database
      */
-    set(update) {
+    Model.prototype.set = function (update) {
         this.attributes.set(update);
         this.events.trigger("change");
-    }
+    };
     /** fetch method
      *  a new user will not yet have an id
      *  so we need to account for that
      */
-    fetch() {
-        const id = this.attributes.get("id");
+    Model.prototype.fetch = function () {
+        var _this = this;
+        var id = this.attributes.get("id");
         if (typeof id !== "number") {
             throw new Error("Cannot fetch without an id.");
         }
-        this.sync.fetch(id).then((response) => {
-            this.set(response.data);
+        this.sync.fetch(id).then(function (response) {
+            _this.set(response.data);
         });
-    }
+    };
     /** method to save any new user data
      *  uses the attributes class to
      *  first get all of the relevant user data
      *  then commit it using the sync save method
      */
-    save() {
+    Model.prototype.save = function () {
         this.sync
             .save(this.attributes.getAll())
-            .then((response) => {
+            .then(function (response) {
             console.log("Saved Model Data: ", response.data);
         })
-            .catch((e) => {
+            .catch(function (e) {
             console.error("Error saving user: ", e);
         });
-    }
-}
-exports.Model = Model;
+    };
+    return Model;
+}());
+export { Model };

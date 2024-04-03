@@ -1,13 +1,5 @@
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = void 0;
-const Eventing_1 = require("./Eventing.js");
-const axios_1 = __importDefault(require("axios"));
+import { Eventing } from "./Eventing";
+import axios from "axios";
 /** this is another generic helper class
  *  which lets the user interact
  *  with the instances they have created
@@ -15,28 +7,38 @@ const axios_1 = __importDefault(require("axios"));
  *  T: the class/structure the user has defined
  *  K: the structure of the JSON which will be deserialized
  */
-class Collection {
-  // define the rootUrl as well as the deserialization function
-  constructor(rootUrl, deserialize) {
-    this.rootUrl = rootUrl;
-    this.deserialize = deserialize;
-    this.models = [];
-    this.events = new Eventing_1.Eventing();
-  }
-  // getters from Eventing class of interest
-  get on() {
-    return this.events.on;
-  }
-  get trigger() {
-    return this.events.trigger;
-  }
-  fetch() {
-    axios_1.default.get(this.rootUrl).then((response) => {
-      response.data.forEach((value) => {
-        this.models.push(this.deserialize(value));
-      });
-      this.trigger("change");
+var Collection = /** @class */ (function () {
+    // define the rootUrl as well as the deserialization function
+    function Collection(rootUrl, deserialize) {
+        this.rootUrl = rootUrl;
+        this.deserialize = deserialize;
+        this.models = [];
+        this.events = new Eventing();
+    }
+    Object.defineProperty(Collection.prototype, "on", {
+        // getters from Eventing class of interest
+        get: function () {
+            return this.events.on;
+        },
+        enumerable: false,
+        configurable: true
     });
-  }
-}
-exports.Collection = Collection;
+    Object.defineProperty(Collection.prototype, "trigger", {
+        get: function () {
+            return this.events.trigger;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Collection.prototype.fetch = function () {
+        var _this = this;
+        axios.get(this.rootUrl).then(function (response) {
+            response.data.forEach(function (value) {
+                _this.models.push(_this.deserialize(value));
+            });
+            _this.trigger("change");
+        });
+    };
+    return Collection;
+}());
+export { Collection };

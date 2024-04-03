@@ -1,17 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const UserList_1 = require("./views/UserList.js");
-const Collection_1 = require("./models/Collection.js");
-const User_1 = require("./models/User.js");
-const UserForm_1 = require("./views/UserForm.js");
+import { UserList } from "./views/UserList";
+import { Collection } from "./models/Collection";
+import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 // ensures dom is loaded before running any code
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   /** link to db.json file on github rep
    *  in a development environment, use
    *  localhost link
    */
   // link for demo
-  const jsonDbLink =
+  var jsonDbLink =
     "https://my-json-server.typicode.com/jpbruehw/typescript-web-framework/blob/main/users";
   // link for local development
   // const jsonDbLink = 'https://localhost:3000/users'
@@ -24,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
    *  best with an actual db or localhost on desktop
    */
   // create a user object
-  const userData = {
+  var userData = {
     id: 4,
     name: "Alex",
     age: 25,
@@ -35,26 +33,26 @@ document.addEventListener("DOMContentLoaded", () => {
    *  with the userData object
    */
   // create user instance by calling static buildUser method
-  const userFormUser = User_1.User.buildUser(userData, jsonDbLink);
+  var userFormUser = User.buildUser(userData, jsonDbLink);
   // query form div
-  const formDiv = document.getElementById("single-user-demo");
+  var formDiv = document.getElementById("single-user-demo");
   /** UserForm takes arguments for the parent
    *  element and the User instance we
    *  just created
    */
   if (formDiv) {
-    const userForm = new UserForm_1.UserForm(formDiv, userFormUser);
+    var userForm = new UserForm(formDiv, userFormUser);
     userForm.render();
   }
   // render a list of users using collection
-  const users = new Collection_1.Collection(jsonDbLink, (json) => {
-    return User_1.User.buildUser(json, jsonDbLink);
+  var users = new Collection(jsonDbLink, function (json) {
+    return User.buildUser(json, jsonDbLink);
   });
   // set trigger event on change so it re-renders
-  users.on("change", () => {
-    const userListDiv = document.getElementById("user-list");
+  users.on("change", function () {
+    var userListDiv = document.getElementById("user-list");
     if (userListDiv) {
-      const userList = new UserList_1.UserList(userListDiv, users);
+      var userList = new UserList(userListDiv, users);
       userList.render();
     } else {
       throw new Error("Cannot get user list.");
