@@ -58,4 +58,5 @@
 
 .user-form-button span {
   z-index: 1;
-  positio
+  position: relative;
+}

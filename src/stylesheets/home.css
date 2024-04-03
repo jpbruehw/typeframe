@@ -55,5 +55,58 @@ body {
   border: solid 1px black;
   transition: box-shadow 0.3s ease;
 }
+.name-input:focus {
+  box-shadow: 5px 5px 0px rgba(109, 0, 109, 0.7);
+  border-radius: 0;
+  outline: 0;
+}
 
-.
+.button-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+  margin-top: 3vh;
+}
+.button-div > button {
+  margin-right: 20px;
+}
+.form-header {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+#user-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .demo-container {
+    width: 90%;
+  }
+
+  .name-input {
+    height: 4vh;
+    width: 90%;
+  }
+
+  #single-user-demo {
+    padding: 5%;
+  }
+
+  .button-div {
+    margin-top: 3vh;
+  }
+
+  .button-div > button {
+    width: 100%;
+    margin-bottom: 1vh;
+  }
+
+  .name-change-header {
+    margin-bottom: 2vh;
+  }
+}

@@ -11,4 +11,12 @@ export class UserShow extends View<User, UserProps> {
     const username = document.createElement("div");
     username.innerText = `Username: ${this.model.get("name")}`;
     const age = document.createElement("div");
-    age.innerText = `Age: ${this.model.get("age")}`
+    age.innerText = `Age: ${this.model.get("age")}`;
+
+    div.appendChild(h3);
+    div.appendChild(username);
+    div.appendChild(age);
+
+    return div;
+  };
+}

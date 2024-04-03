@@ -16,6 +16,8 @@
 .user-details-container {
   margin-top: 25px;
   margin-bottom: 50px;
+  margin-right: 15px;
+  margin-left: 15px;
   height: 125px;
   width: 175px;
   padding: 5%;
