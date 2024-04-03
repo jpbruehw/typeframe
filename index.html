@@ -3,14 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./src/index.ts"></script>
+
     <script>
       var parcelRequire;
     </script>
     <link rel="stylesheet" href="./src/stylesheets/home.css" />
+    <link rel="stylesheet" href="./src/stylesheets/button-css.css" />
+    <link rel="stylesheet" href="./src/stylesheets/connect-links.css" />
+    <link rel="stylesheet" href="./src/stylesheets/user-carousel.css" />
+    <script src="./src/index.ts"></script>
     <title>User Demo</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="demo-container">
+      <h1 class="demo-header">TypeFrame Demo</h1>
+      <div class="user-container">
+        <div id="single-user-demo"></div>
+        <h2 class="user-collection-heading">User List Collection</h2>
+        <div id="user-list"></div>
+      </div>
+      <div class="connect-links">
+        <div class="links-container">
+          <div class="linkedin-link">
+            <img src="./src/assets/linkedin-logo-v2.svg" alt="linkedin logo" />
+            <a href="https://www.linkedin.com/in/jpbruehwiler/" target="_blank"
+              >Let's Connect!</a
+            >
+          </div>
+          <div class="github-link">
+            <img src="./src/assets/github-logo.svg" alt="github logo" />
+            <p>
+              Check out some of my other projects 👉
+              <a href="https://github.com/jpbruehw" target="_blank">GitHub</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
