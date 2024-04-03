@@ -1,9 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const UserList_1 = require("./views/UserList");
-const Collection_1 = require("./models/Collection");
-const User_1 = require("./models/User");
-const UserForm_1 = require("./views/UserForm");
+// Object.defineProperty(exports, "__esModule", { value: true });
+import { UserList } from "./views/UserList";
+import { Collection } from "./models/Collection";
+import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 // ensures dom is loaded before running any code
 document.addEventListener("DOMContentLoaded", () => {
   /** link to db.json file on github rep
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
    *  with the userData object
    */
   // create user instance by calling static buildUser method
-  const userFormUser = User_1.User.buildUser(userData, jsonDbLink);
+  const userFormUser = User.buildUser(userData, jsonDbLink);
   // query form div
   const formDiv = document.getElementById("single-user-demo");
   /** UserForm takes arguments for the parent
@@ -43,18 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
    *  just created
    */
   if (formDiv) {
-    const userForm = new UserForm_1.UserForm(formDiv, userFormUser);
+    const userForm = new UserForm(formDiv, userFormUser);
     userForm.render();
   }
   // render a list of users using collection
-  const users = new Collection_1.Collection(jsonDbLink, (json) => {
-    return User_1.User.buildUser(json, jsonDbLink);
+  const users = new Collection(jsonDbLink, (json) => {
+    return User.buildUser(json, jsonDbLink);
   });
   // set trigger event on change so it re-renders
   users.on("change", () => {
     const userListDiv = document.getElementById("user-list");
     if (userListDiv) {
-      const userList = new UserList_1.UserList(userListDiv, users);
+      const userList = new UserList(userListDiv, users);
       userList.render();
     } else {
       throw new Error("Cannot get user list.");
