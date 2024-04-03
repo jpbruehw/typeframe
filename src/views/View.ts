@@ -40,41 +40,19 @@ export abstract class View<T extends Model<K>, K extends HasId> {
    *  together the different parts
    *  of our HTML
    *  --> create default implementation
-   *    of an empty object
+   *      of an empty object
    *  --> default method to return the HTML
    *      elements is set to return empty object
    *      takes a key and returns the callback
    *      to create the given element
    *  ------------------------------------------
-   *  see User example for reference implementation
+   *  see UserEdit.ts example for reference implementation
    */
   regions: { [key: string]: Element } = {};
   regionsMap(): { [key: string]: string } {
     return {};
   }
-
-  // helper method to re-render model when changes are made
-  bindModel(): void {
-    this.model.on("change", () => {
-      console.log("I WAS RERENDERED");
-      this.render();
-    });
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    const eventsMap = this.eventsMap();
-
-    for (let eventKey in eventsMap) {
-      const [eventName, selector] = eventKey.split(":");
-
-      console.log();
-
-      fragment.querySelectorAll(selector).forEach((element) => {
-        element.addEventListener(eventName, eventsMap[eventKey]);
-      });
-    }
-  }
-
+  // loops over HTML and adds events and event listeners
   mapRegions(fragment: DocumentFragment): void {
     // reference the regionsMap
     const regionsMap = this.regionsMap();
@@ -91,27 +69,65 @@ export abstract class View<T extends Model<K>, K extends HasId> {
       }
     }
   }
+  // helper method to re-render model when changes are made
+  bindModel(): void {
+    this.model.on("change", () => {
+      this.render();
+    });
+  }
+  /** helper function that adds events
+   *  and event listeners to the html elements
+   *  the event listener is the left side and
+   *  the selector on the right side
+   *  i.e. click:.set-name
+   *  ---------------------------------------
+   *  see UserForm.ts for example implementation
+   */
+  bindEvents(fragment: DocumentFragment): void {
+    const eventsMap = this.eventsMap();
+    // loops over keys from eventsMap object
+    for (let eventKey in eventsMap) {
+      const [eventName, selector] = eventKey.split(":");
 
-  onRender(): void {}
-
-  render(): void {
-    // when the form, re-renders, we want
-    // to make sure to first empty the existing html
-    // then add it back in
-    this.parent.innerHTML = "";
-
-    // create a form
-    const templateElement = this.template();
-
-    // create a temporary div to hold the template
-    const tempDiv = document.createElement("div");
-    tempDiv.appendChild(templateElement);
-
-    // extract the DocumentFragment from the temporary div
-    const fragment = document.createDocumentFragment();
-    while (tempDiv.firstChild) {
-      fragment.appendChild(tempDiv.firstChild);
+      fragment.querySelectorAll(selector).forEach((element) => {
+        element.addEventListener(eventName, eventsMap[eventKey]);
+      });
     }
+  }
+
+  /** optional function to perform
+   *  the purpose of this function is
+   *  to build modular components
+   *  dynamically
+   *  NOTE: see UserEdit.ts for sample
+   *  implementation
+   */
+  onRender(): void {}
+  /** main render function that brings
+   *  together all the methods we have defined
+   *  it first clears the html of the parent element
+   *  and then brings together all the
+   *  methods we have laid out so far
+   */
+  render(): void {
+    /** when the form re-renders, we want
+     *  to make sure to first empty the existing html
+     *  then add it back in
+     */
+    this.parent.innerHTML = "";
+    /** create a template based on
+     *  the template() method
+     *  implemented for the specific
+     *  model
+     */
+    const templateElement = this.template();
+    /** create a document fragment
+     *  which we append all the html
+     *  elements to
+     */
+    const fragment = document.createDocumentFragment();
+    // append the template element to the div
+    fragment.appendChild(templateElement);
 
     // bind events to elements in the fragment
     this.bindEvents(fragment);
@@ -119,7 +135,7 @@ export abstract class View<T extends Model<K>, K extends HasId> {
     // call mapRegions method
     this.mapRegions(fragment);
 
-    // nest all the views
+    // nest all the views - if implemented
     this.onRender();
 
     // append the fragment to the parent element

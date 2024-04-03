@@ -21,10 +21,8 @@ export class Collection<T, K> {
     return this.events.trigger;
   }
   fetch(): void {
-    console.log("FETCH METHOD CALLED: ");
     axios.get(this.rootUrl).then((response: AxiosResponse) => {
       response.data.forEach((value: K) => {
-        console.log("response found");
         this.models.push(this.deserialize(value));
       });
       this.trigger("change");

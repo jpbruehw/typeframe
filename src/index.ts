@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const jsonDbLink =
     "https://my-json-server.typicode.com/jpbruehw/typescript-web-framework/blob/main/users";
   // link for local development
-  // const jsonDbLink = 'https://localhost:3000'
-  console.log("hello i got here --");
+  // const jsonDbLink = 'https://localhost:3000/users'
+
   /** user form demo
    *  --------------
    *  we will create a new user by passing in
@@ -29,19 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
     name: "Alex",
     age: 25,
   };
-  console.log("USER DATA: ", userData);
   /** get the parent element to pass in the form into
    *  query element from dom and then pass it in
    *  along with the user instance we create
    *  with the userData object
    */
-  console.log("hello i got here --");
   // create user instance by calling static buildUser method
   const userFormUser = User.buildUser(userData, jsonDbLink);
-  console.log("USER FORM USER: ", userFormUser);
   // query form div
   const formDiv = document.getElementById("single-user-demo");
-  console.log("FORM DIV: ", formDiv);
   /** UserForm takes arguments for the parent
    *  element and the User instance we
    *  just created
@@ -53,17 +49,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // render a list of users using collection
   const users = new Collection(jsonDbLink, (json: UserProps) => {
-    console.log("DB URL: ", jsonDbLink);
     return User.buildUser(json, jsonDbLink);
   });
-  console.log("USERS: ", users);
   // set trigger event on change so it re-renders
   users.on("change", () => {
     const userListDiv = document.getElementById("user-list");
 
     if (userListDiv) {
       const userList = new UserList(userListDiv, users);
-      console.log("USER LSIT: ", userList);
       userList.render();
     } else {
       throw new Error("Cannot get user list.");

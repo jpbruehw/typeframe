@@ -2,7 +2,13 @@ import { View } from "./View";
 import { User, UserProps } from "../models/User";
 import { UserForm } from "./UserForm";
 import { UserShow } from "./UserShow";
-
+/** class that that takes user information
+ *  and renders a simple form as well as
+ *  some basic information about the user
+ *  shows how the regionsMap and onRender
+ *  functionality can be used to dynamically
+ *  render components
+ */
 export class UserEdit extends View<User, UserProps> {
   regionsMap(): { [key: string]: string } {
     return {

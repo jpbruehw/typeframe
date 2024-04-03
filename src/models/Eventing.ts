@@ -1,6 +1,13 @@
 /** set up type alias for functions */
 type Callback = () => void;
-
+/** basic function to hold the events
+ *  and triggers for a given model
+ *  this lets users dynamically program
+ *  events, i.e. saving model information to
+ *  a database etc.
+ *  will likely need further tweaking for more
+ *  complex implementations
+ */
 export class Eventing {
   /** object in the class to hold the events
    *  the key is a string and the result is
@@ -28,32 +35,21 @@ export class Eventing {
 
     // add the handlers to the given events
     this.events[eventName] = handlers;
-
-    console.log("I HAVE BEEN TRIGGERED");
-    console.log("---------------------");
-    console.log("eventName: ", eventName);
-    console.log("callback: ", callback);
-    console.log("all events: ", this.events);
-    console.log("---------------------");
   };
-
   /** trigger function to execute the callbacks
    *  we have added to different event types
    */
   trigger = (eventName: string): void => {
     /** extract the handlers for that event */
     const handlers = this.events[eventName];
-    console.log("EVENTS: ", this.events);
     /** if there are no handlers for the event
      *  we exit and return
      */
     if (!handlers || handlers.length === 0) {
-      console.log("NO CALLBACKS FOUND");
       return;
     }
     /** otherwise we call all the callbacks in the array */
     handlers.forEach((callback) => {
-      console.log("CALLBACK CALLED: ", callback);
       callback();
     });
   };

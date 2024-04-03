@@ -16,16 +16,23 @@ export class ApiSync<T extends HasId> {
    */
   constructor(public rootUrl: string) {}
 
-  /** create fetch method to get information from a db */
+  /** create fetch method to get
+   *  information from a db
+   *  for an instance of a model based on id
+   */
   fetch(id: number): AxiosPromise {
     return axios.get(`${this.rootUrl}/${id}`);
   }
 
-  /** create method to save a user */
+  /** create method to save a user
+   *  this save method needs to be updated
+   *  depending on the model context
+   *  if there exists an id property on the data
+   *  NOTE: edit the /users/ portion of the save method
+   */
   save(data: T): AxiosPromise {
     const { id } = data;
     if (id) {
-      console.log("PUT REQUEST DATA: ", data);
       return axios.put(`${this.rootUrl}/users/${id}`, data);
     } else {
       return axios.post(`${this.rootUrl}/users`, data);

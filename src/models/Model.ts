@@ -96,7 +96,7 @@ export class Model<T extends HasId> {
     this.sync
       .save(this.attributes.getAll())
       .then((response: AxiosResponse): void => {
-        this.trigger("save");
+        console.log("Saved Model Data: ", response.data);
       })
       .catch((e) => {
         console.error("Error saving user: ", e);
