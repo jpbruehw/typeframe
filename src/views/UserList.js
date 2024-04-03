@@ -1,20 +1,36 @@
-var __extends = (this && this.__extends) || (function () {
+var __extends =
+  (this && this.__extends) ||
+  (function () {
     var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
+      extendStatics =
+        Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array &&
+          function (d, b) {
+            d.__proto__ = b;
+          }) ||
+        function (d, b) {
+          for (var p in b)
+            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+        };
+      return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+      if (typeof b !== "function" && b !== null)
+        throw new TypeError(
+          "Class extends value " + String(b) + " is not a constructor or null"
+        );
+      extendStatics(d, b);
+      function __() {
+        this.constructor = d;
+      }
+      d.prototype =
+        b === null
+          ? Object.create(b)
+          : ((__.prototype = b.prototype), new __());
     };
-})();
-import { CollectionView } from "./CollectionView";
-import { UserShow } from "./UserShow";
+  })();
+import { CollectionView } from "./CollectionView.js";
+import { UserShow } from "./UserShow.js";
 /** this class renders a list of users which are
  *  passed in which transforms the model
  *  based on the render function in CollectionViews.ts
@@ -23,13 +39,13 @@ import { UserShow } from "./UserShow";
  *  that renders a new UserShow instance, which extends Views.ts
  */
 var UserList = /** @class */ (function (_super) {
-    __extends(UserList, _super);
-    function UserList() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    UserList.prototype.renderItem = function (model, itemParent) {
-        new UserShow(itemParent, model).render();
-    };
-    return UserList;
-}(CollectionView));
+  __extends(UserList, _super);
+  function UserList() {
+    return (_super !== null && _super.apply(this, arguments)) || this;
+  }
+  UserList.prototype.renderItem = function (model, itemParent) {
+    new UserShow(itemParent, model).render();
+  };
+  return UserList;
+})(CollectionView);
 export { UserList };
