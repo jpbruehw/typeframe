@@ -1,5 +1,5 @@
-import { UserList } from "./src/views/UserList";
-import { Collection } from "./src/models/Collection";
+import { UserList } from "./src/views/UserList.js";
+import { Collection } from "./src/models/Collection.js";
 import { User } from "./src/models/User";
 import { UserForm } from "./src/views/UserForm";
 // ensures dom is loaded before running any code
