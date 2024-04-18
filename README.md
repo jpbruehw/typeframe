@@ -60,9 +60,9 @@ const jsonDbLink = 'https://localhost:3000/users'
 ```
 
 By doing this, you can customize the **db.json** file as you see fit. If you do this, you can also run the "db" and parcel startup command concurrently:
-<code>
+```
 npm start
-</code>
+```
 
 _See package.json for reference:_
 
