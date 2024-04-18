@@ -8,6 +8,8 @@
 
 TypeFrame is a lightweight TypeScript framework for building web applications with ease. It provides a structured approach to developing frontend applications, emphasizing type safety, modularity, and extensibility.
 
+### Check Out a Working Demo Here!: [User Demo](https://jpbruehw.github.io/typeframe/)
+
 ### Features:
 
 - **Type Safety:** Built entirely in TypeScript, TypeFrame leverages static typing to catch errors at compile time, reducing bugs and improving code quality.
@@ -30,19 +32,19 @@ We have put together a simple demo app rendering some user information from a JS
 
 1. #### Clone the repo
    <code>
-   git clone https://github.com/jpbruehw/typeframe
+      git clone https://github.com/jpbruehw/typeframe
    </code>
 2. #### cd into repo
    <code>
-   cd typeframe
+      cd typeframe
    </code>
 3. #### Install Packages
    <code>
-   npm install or yarn install
+      npm install or yarn install
    </code>
 4. #### Run startup command
    <code>
-   npx parcel index.html
+      npx parcel index.html
    </code>
 **Note:** if you want to run the user demo app with your own __db.json__ file, navigate to __index.ts__ and comment out the following line:
 
