@@ -31,21 +31,21 @@ TypeFrame is constantly being updated to make the development experience even be
 We have put together a simple demo app rendering some user information from a JSON Server file. The purpose of this demo is to help developers get familiar with the framework. Follow these steps to get started:
 
 1. #### Clone the repo
-   <code>
-      git clone https://github.com/jpbruehw/typeframe
-   </code>
+   ```
+   git clone https://github.com/jpbruehw/typeframe
+   ```
 2. #### cd into repo
-   <code>
-      cd typeframe
-   </code>
+   ```
+   cd typeframe
+   ```
 3. #### Install Packages
-   <code>
-      npm install or yarn install
-   </code>
+   ```
+   npm install or yarn install
+   ```
 4. #### Run startup command
-   <code>
-      npx parcel index.html
-   </code>
+   ```
+   npx parcel index.html
+   ```
 **Note:** if you want to run the user demo app with your own __db.json__ file, navigate to __index.ts__ and comment out the following line:
 
 ```TypeScript
