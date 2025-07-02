@@ -2,12 +2,14 @@
   "name": "web-framework",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
   "type": "module",
+  "homepage": "https://jpbruehw.github.io/typeframe/",
   "scripts": {
     "start:parcel": "npx parcel index.html",
     "start:db": "npx json-server --watch db.json",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "build": "npx parcel build index.html --dist-dir dist",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +18,8 @@
     "axios": "^1.6.8",
     "concurrently": "^8.2.2",
     "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

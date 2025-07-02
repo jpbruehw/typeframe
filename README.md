@@ -2,7 +2,9 @@
 
 ### TypeFrame is Lightweight TypeScript Framework that does all the heavy lifting.
 
----
+--- 
+
+"main": "dist/index.js",
 
 ### What is TypeFrame?
 

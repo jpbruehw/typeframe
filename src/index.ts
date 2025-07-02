@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
    *  localhost link
    */
   // link for demo
+  // saving and editing users will only work locally
   const jsonDbLink =
     "https://my-json-server.typicode.com/jpbruehw/typescript-web-framework/blob/main/users";
   // link for local development
